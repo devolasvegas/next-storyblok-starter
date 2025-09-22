@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import StoryblokProvider from "./components/StoryblokProvider";
+import StoryblokProvider from "./components/storyblok/StoryblokProvider";
 
 import "./globals.css";
 
