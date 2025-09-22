@@ -3,4 +3,6 @@ import Grid from "./Grid";
 import Page from "./Page";
 import Teaser from "./Teaser";
 
-export { Feature, Grid, Page, Teaser };
+import StoryblokProvider from "./StoryblokProvider";
+
+export { Feature, Grid, Page, Teaser, StoryblokProvider };
