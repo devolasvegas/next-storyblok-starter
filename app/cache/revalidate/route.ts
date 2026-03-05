@@ -2,12 +2,14 @@ import { revalidateTag } from "next/cache";
 
 export async function POST(request: Request) {
   const url = new URL(request.url);
-  console.log("Received revalidation request:", url.toString());
-  const cacheTag = url.searchParams.get("cacheTag");
+  const cacheTag: string | null = url.searchParams.get("cacheTag");
+
+  const validCacheTags = ["storyblok-space"];
+  const isValidCacheTag = validCacheTags.includes(cacheTag || "");
 
   console.log(`Received revalidation request for cacheTag: ${cacheTag}`);
 
-  if (cacheTag) {
+  if (cacheTag && isValidCacheTag) {
     try {
       revalidateTag(cacheTag, "max");
 
@@ -21,7 +23,7 @@ export async function POST(request: Request) {
       return new Response("Failed to trigger revalidation", { status: 500 });
     }
   } else {
-    console.warn("Missing cacheTag parameter in revalidation request");
-    return new Response("Missing cacheTag parameter", { status: 400 });
+    console.warn("Missing valid cacheTag parameter in revalidation request");
+    return new Response("Missing valid cacheTag parameter", { status: 400 });
   }
 }
