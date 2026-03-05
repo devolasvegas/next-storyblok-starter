@@ -7,7 +7,7 @@ export default async function Page({ params }) {
   const fullSlug = slug ? slug.join("/") : "home";
 
   const sbParams = {
-    version: "draft",
+    version: "published",
   };
 
   const storyblokApi = getStoryblokApi();
