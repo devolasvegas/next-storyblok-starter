@@ -5,10 +5,8 @@ import { Feature, Grid, Page, Teaser } from "../components/storyblok";
 const storyblokToken =
   process.env.NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN;
 
-console.log("Storyblok Token:", storyblokToken);
-
 export const getStoryblokApi = storyblokInit({
-  accessToken: process.env.NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN,
+  accessToken: storyblokToken,
   use: [apiPlugin],
   apiOptions: {
     region: "eu",
