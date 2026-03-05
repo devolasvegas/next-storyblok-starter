@@ -24,8 +24,11 @@ export const getStoryblokApi = storyblokInit({
       // Creating a cache tag for each Storyblok slug, so we can invalidate the cache for specific pages when they are updated in Storyblok.
       return fetch(url.toString(), {
         next: { tags: [`story:${slug}`] },
+        // TODO: Add `revalidate` as a fallback?
       });
     },
+    rateLimit: 100000,
+    cache: { type: "none" },
     region: "eu",
   },
   components: {
