@@ -8,7 +8,7 @@ export async function GET(request: Request) {
 
   if (cacheTag) {
     try {
-      revalidateTag(cacheTag);
+      revalidateTag(cacheTag, "max");
 
       console.log(
         `Successfully triggered revalidation for cacheTag: ${cacheTag}`,
