@@ -1,23 +1,34 @@
+import { notFound } from "next/navigation";
 import { StoryblokStory } from "@storyblok/react/rsc";
 import { getStoryblokApi } from "../lib/storyblok";
 
+getStoryblokApi();
+
+async function getStory(slug) {
+  const res = await fetch(
+    `https://api.storyblok.com/v2/cdn/stories/${slug}?token=${process.env.NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN}&version=published`,
+    {
+      cache: "force-cache",
+      next: {
+        tags: ["storyblok", `storyblok:${slug}`],
+      },
+    },
+  );
+
+  if (!res.ok) return null;
+
+  const data = await res.json();
+  return data.story;
+}
+
 export default async function Page({ params }) {
   const { slug } = await params;
-
   const fullSlug = slug ? slug.join("/") : "home";
+  const story = await getStory(fullSlug);
 
-  const storyblokApi = getStoryblokApi();
+  if (!story) {
+    notFound();
+  }
 
-  const sbParams = {
-    version: "published",
-  };
-
-  // Pass the slug in the body of the request so it can be used in the custom fetch function to set cache tags for Next.js' Data Cache.
-  const { data } = await storyblokApi.get(`cdn/stories/${fullSlug}`, sbParams, {
-    body: {
-      slug: fullSlug,
-    },
-  });
-
-  return <StoryblokStory story={data.story} />;
+  return <StoryblokStory story={story} />;
 }

@@ -5,14 +5,15 @@ import { revalidateTag } from "next/cache";
 */
 export async function POST(request: Request) {
   const body = await request.json();
-  const storyId = body.story_id;
-  const cacheTag: string | null = storyId ? `storyblok:${storyId}` : null;
+  // TODO: Test with pages in folders to ensure slug matches what was initially set with fetch.
+  const fullSlug = body.full_slug; // Assuming the slug is passed in the request body as "full_slug"
+  const cacheTag: string | null = fullSlug ? `storyblok:${fullSlug}` : null;
 
   console.log(`Received revalidation request for cacheTag: ${cacheTag}`);
 
   if (cacheTag) {
     try {
-      revalidateTag(cacheTag, "max");
+      revalidateTag(cacheTag, { expire: 0 });
 
       console.log(
         `Successfully triggered revalidation for cacheTag: ${cacheTag}`,
