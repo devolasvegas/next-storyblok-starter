@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
   if (cacheTag) {
     try {
-      revalidateTag(cacheTag, { expire: 0 });
+      revalidateTag(cacheTag, "max");
 
       console.log(
         `Successfully triggered revalidation for cacheTag: ${cacheTag}`,
