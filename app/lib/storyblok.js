@@ -2,8 +2,7 @@ import { apiPlugin, storyblokInit } from "@storyblok/react";
 
 import { Feature, Grid, Page, Teaser } from "../components/storyblok";
 
-const storyblokToken =
-  process.env.NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN;
+const storyblokToken = process.env.STORYBLOCK_PUBLIC_ACCESS_TOKEN;
 
 export const getStoryblokApi = storyblokInit({
   accessToken: storyblokToken,

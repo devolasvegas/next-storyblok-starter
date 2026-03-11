@@ -14,7 +14,7 @@ There are no tests configured.
 
 ## Environment Variables
 
-- `NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN` — required for fetching content from Storyblok
+- `STORYBLOCK_PUBLIC_ACCESS_TOKEN` — required for fetching content from Storyblok
 
 ## Architecture
 
@@ -31,6 +31,7 @@ Storyblok webhooks POST to `app/api/revalidate/route.ts` with a `full_slug` in t
 ### Storyblok SDK usage
 
 The SDK (`@storyblok/react`) is used only for:
+
 1. **Component registration** — `app/lib/storyblok.js` calls `storyblokInit()` and maps Storyblok component names to React components
 2. **Live preview** — `StoryblokStory` from `@storyblok/react/rsc` renders stories server-side; `StoryblokProvider` (a client component) initializes the SDK on the client for live preview in the Storyblok editor
 
